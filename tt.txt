@@ -1,0 +1,118 @@
+TIPOS DE API
+============
+
+POR PROTOCOLO
+-------------
+- REST      → La más común, usa HTTP (GET, POST, PUT, DELETE)
+- GraphQL   → Tú decides qué datos quieres recibir
+- SOAP      → Más antigua, usa XML. Se usa en bancos y sistemas empresariales
+- WebSocket → Conexión en tiempo real, ideal para chats o juegos
+- gRPC      → Creada por Google, muy rápida, usa Protocol Buffers en vez de JSON
+
+
+POR ACCESO
+----------
+- Pública           → Cualquiera puede usarla (TMDB, Rick and Morty, PokéAPI)
+- Privada           → Solo dentro de una empresa o proyecto
+- Con autenticación → Necesitas API Key o token (como TMDB)
+- De pago           → Tienes un límite gratis y luego pagas (Google Maps, OpenAI)
+
+
+POR FUNCIÓN
+-----------
+- Clima          → Open Meteo, OpenWeatherMap
+- Pagos          → Stripe, PayPal
+- Mapas          → Google Maps, Mapbox
+- Redes sociales → Twitter/X, Instagram
+- Entretenimiento→ TMDB, Spotify
+- IA             → OpenAI, Anthropic
+
+
+gRPC VS REST
+------------
+Formato   → REST usa JSON        | gRPC usa Protocol Buffers (binario)
+Velocidad → REST es normal       | gRPC es mucho más rápido
+Uso       → REST para apps web   | gRPC para microservicios / backend a backend
+Lectura   → REST fácil de leer   | gRPC necesitas herramientas para leerlo
+
+
+=============================================
+        .map() vs .filter() — Explicación
+=============================================
+
+
+.filter() — FILTRA, DESCARTA LO QUE NO SIRVE
+---------------------------------------------
+Imagina que tienes una lista de personas y solo quieres
+las que tienen más de 18 años. .filter() BOTA las que no
+cumplen la condición y devuelve solo las que sí.
+
+  const personas = [
+      { nombre: "Ana",   edad: 15 },
+      { nombre: "Luis",  edad: 22 },
+      { nombre: "Pedro", edad: 17 },
+      { nombre: "Maria", edad: 25 }
+  ]
+
+  const mayores = personas.filter((persona) => persona.edad >= 18)
+
+  console.log(mayores)
+  // [
+  //   { nombre: "Luis",  edad: 22 },
+  //   { nombre: "Maria", edad: 25 }
+  // ]
+
+  Entran 4 personas → salen 2 (las que no cumplieron se fueron ❌)
+
+
+.map() — TRANSFORMA, NO DESCARTA NADA
+--------------------------------------
+Tienes la misma lista pero solo quieres los NOMBRES.
+.map() recorre TODOS los elementos y los transforma
+en lo que tú quieras.
+
+  const nombres = personas.map((persona) => persona.nombre)
+
+  console.log(nombres)
+  // ["Ana", "Luis", "Pedro", "Maria"]
+
+  Entran 4 personas → salen 4 nombres
+  Nadie se fue, solo cambiaron de forma ✅
+
+
+RESUMEN VISUAL
+--------------
+  LISTA ORIGINAL → [🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑 🧑]  (10 elementos)
+
+  .filter()      → [🧑 🧑 🧑]                          (solo los que cumplen)
+
+  .map()         → [📋 📋 📋 📋 📋 📋 📋 📋 📋 📋]     (los 10 transformados)
+
+
+DIFERENCIAS CLAVE
+-----------------
+  .filter() → SELECCIONA  | Salen menos o igual elementos | Para quedarte con algunos
+  .map()    → TRANSFORMA  | Salen siempre los mismos      | Para cambiar la forma de todos
+
+
+JUNTOS SON PODEROSOS — Ejemplo real con TMDB
+---------------------------------------------
+  async function getMovies() {
+      const response = await fetch(url)
+      const { results } = await response.json()
+
+      // PASO 1 - .filter() → me quedo solo con las bien puntuadas
+      const buenas = results.filter((movie) => movie.vote_average >= 7)
+
+      // PASO 2 - .map() → de esas, solo quiero titulo y puntuacion
+      const info = buenas.map((movie) => ({
+          titulo: movie.title,
+          puntuacion: movie.vote_average
+      }))
+
+      console.log(info)
+  }
+
+  Primero FILTRA, luego TRANSFORMA 🔥
+
+=============================================
