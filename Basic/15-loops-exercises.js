@@ -82,10 +82,3 @@ for (let i = 0; i <= 10; i++) {
 
 let otro = [4, 5, 5, 6, 25, 10, 11, 48, 5, 9]
 console.log('hola perra')
-for (let i of otro) {
-    if (i >= 10) {
-        console.log(i)
-    } else {
-        continue
-    }
-}
